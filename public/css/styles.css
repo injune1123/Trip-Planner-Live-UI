@@ -17,7 +17,10 @@ body {
   cursor: pointer; }
 
 .day-button {
-  margin-right: 20px; }
+  margin-right: 5px; }
+
+.glyphicon-minus-sign {
+  margin-right: 15px; }
 
 ul {
   list-style: none; }

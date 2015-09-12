@@ -72,7 +72,7 @@ $(document).ready(function() {
 
       event.preventDefault();
 
-      $days.append('<button class="btn btn-default day-button" id="' + dayToAdd + '">Day ' + dayToAdd +'</button>');
+      $days.append('<div><button class="btn btn-default day-button" id="' + dayToAdd + '">Day ' + dayToAdd +'</button> <i class="glyphicon glyphicon-minus-sign dayRemoveButton" style="font-size: 10px; cursor: pointer;"></i></div>');
 
       var currentItinerary = {
         dayNumber: dayToAdd.toString(),
@@ -117,6 +117,15 @@ $(document).ready(function() {
         thisItinerary.restaurants.forEach(restaurants => addOldInfo('Restaurants', restaurants));
         thisItinerary.activities.forEach(activities => addOldInfo('Activities', activities));
       });
+      
+        $(".dayRemoveButton").click(function(event){
+            event.preventDefault();
+            var dayToDelete = $(this).prev().attr("id");
+            _.remove(dayItineraries, item => item.dayNumber===dayToDelete);
+            $(this).parent().remove();
+
+        })
+
 
       dayItineraries.push(currentItinerary)
       dayToAdd++;
