@@ -17,8 +17,8 @@ $(document).ready(function() {
 
   var added = [];
   var dayItineraries = []; 
-  var dayToAdd = 1;
   var currentDay;
+  var removeRegistered = false;
 
   function addItineraryItem(button, info, itinerary, itemName) {
     button.click(function(event) {
@@ -72,16 +72,16 @@ $(document).ready(function() {
 
       event.preventDefault();
 
-      $days.append('<div><button class="btn btn-default day-button" id="' + dayToAdd + '">Day ' + dayToAdd +'</button> <i class="glyphicon glyphicon-minus-sign dayRemoveButton" style="font-size: 10px; cursor: pointer;"></i></div>');
+      $days.append('<div class="dayButtonGroup"><button class="btn btn-default day-button" id="' + (dayItineraries.length + 1) + '">Day ' + (dayItineraries.length + 1) +'</button> <i class="glyphicon glyphicon-minus-sign" id="remove' + (dayItineraries.length + 1) + '" style="font-size: 10px; cursor: pointer;"></i></div>');
 
       var currentItinerary = {
-        dayNumber: dayToAdd.toString(),
+        dayNumber: (dayItineraries.length + 1).toString(),
         hotels: [],
         restaurants: [],
         activities: []
       }
 
-      $('#' + dayToAdd).click(function(event) {
+      $('#' + (dayItineraries.length + 1)).click(function(event) {
         event.preventDefault();
         currentDay = $(this).attr('id');
 
@@ -117,18 +117,32 @@ $(document).ready(function() {
         thisItinerary.restaurants.forEach(restaurants => addOldInfo('Restaurants', restaurants));
         thisItinerary.activities.forEach(activities => addOldInfo('Activities', activities));
       });
-      
-        $(".dayRemoveButton").click(function(event){
-            event.preventDefault();
-            var dayToDelete = $(this).prev().attr("id");
-            _.remove(dayItineraries, item => item.dayNumber===dayToDelete);
-            $(this).parent().remove();
+  
+      $("#remove" + (dayItineraries.length + 1)).click(function(event){
+        console.log(dayItineraries);
+        event.preventDefault();
+        var dayToDelete = $(this).prev().attr("id");
 
-        })
+        _.remove(dayItineraries, function(item) {
+          return item.dayNumber === dayToDelete;
+        });
 
+        $(this).parent().remove();
+
+        dayItineraries.forEach(function(item, i) {
+          item.dayNumber = i + 1;
+        });
+
+        $.each($('.day-button'), function(i, button) {
+          var idToAdd = i + 1;
+
+          $(button).attr('id', idToAdd);
+          $(button).empty().html('Day ' + idToAdd);
+        });
+        console.log(dayItineraries);
+      });
 
       dayItineraries.push(currentItinerary)
-      dayToAdd++;
    });
 
 });
