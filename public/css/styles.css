@@ -16,7 +16,7 @@ body {
 #addDayButton, .add-item, #removeDayButton {
   cursor: pointer; }
 
-button[id^="Day"] {
+.day-button {
   margin-right: 20px; }
 
 ul {
