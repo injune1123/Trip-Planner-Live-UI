@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 
-
 gulp.task('seed', function(){
   require('./seeds');
 });
@@ -16,3 +15,5 @@ gulp.task('sass', function () {
 gulp.task('sass:watch', ['sass'], function () {
   gulp.watch('assets/css/**/*.scss', ['sass']);
 });
+
+gulp.task('default', ['sass:watch']);
