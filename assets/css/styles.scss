@@ -27,6 +27,11 @@ body {
   cursor: pointer;
 }
 
+button[id^="Day"]{
+  margin-right: 20px;
+
+}
+
 ul {
   list-style: none;
 

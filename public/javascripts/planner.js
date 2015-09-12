@@ -36,8 +36,36 @@ $(document).ready(function() {
    *    ADD DAYS
    */
 
+   var dayItineraries = []; 
+   var $addDayButton = $("#addDayButton");
+   var $removeDayButton = $("#removeDayButton");
 
 
+   var $days = $("#dayPanel");
 
+   var currentDay = 1;
+
+   $addDayButton.click(function(event){
+
+      event.preventDefault();
+      $days.append('<button class="btn btn-default day-button" id="' + currentDay + '">Day ' + currentDay +'</button>');
+
+      var currentItinerary = {
+        dayNumber: currentDay.toString(),
+        hotels: null,
+        restaurants: [],
+        activities: []
+      }
+
+      $('#' + currentDay).click(function(event) {
+        event.preventDefault();
+
+        var thisItinerary = _.find(dayItineraries, { 'dayNumber': $(this).attr('id') })
+        console.log(thisItinerary)
+      })
+
+      dayItineraries.push(currentItinerary)
+      currentDay++;
+   })
 
 });
